@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class Unit : Card, Type {
+abstract public class Unit : Card, IType {
     private int attack;
     private int life;
     private int shield;
