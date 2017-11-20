@@ -2,24 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+///  To be completed
+/// </summary>
 abstract public class Unit : Card, IType {
-    private int attack;
-    private int life;
-    private int shield;
-    private bool[] moves;
+    private const int DefaultShield = 0;
 
+	private int Attack;
+	private int Life;
+	private int Shield;
+	private bool[] Moves;
+    public readonly int TimeToProduce;
+
+    // we can use Extensions to give enums methods
     private enum UnitType {
         Ground,
         Space
     }
 
-    private readonly int timeToProduce;
+	private Unit(int attack, int life, bool[] moves, int timeToProduce) {
+        Utility.Require(attack >= 0, "Attack < 0");
+        Utility.Require(life >= 1, "Life <= 0");
 
-    private Unit(int attack, int life, bool[] moves, int timeToProduce) {
-        this.attack = attack;
-        this.life = life;
-        this.shield = 0;
-        this.moves = moves;
-        this.timeToProduce = timeToProduce;
+        this.Attack = attack;
+        this.Life = life;
+		this.Shield = DefaultShield;
+        this.Moves = moves;
+        this.TimeToProduce = timeToProduce;
     }
 }

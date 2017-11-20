@@ -1,17 +1,30 @@
 using UnityEngine;
 using System.Collections;
 
-public class Building : Faction
+/// <summary>
+///  To be completed
+/// </summary>
+public class Building : IFaction
 {
-	// Use this for initialization
-	void Start()
-	{
+	private Unit Unit;
+	public bool IsProductionCompleted = false;
+	public bool IsHit = false;
 
+	/// <summary>
+	///  To be completed
+	/// </summary>
+	public void Produce() {
+		if (!IsHit) {
+			int counter = Unit.TimeToProduce;
+			if (counter > 0) --counter;
+			else IsProductionCompleted = true;
+		}
 	}
 
-	// Update is called once per frame
-	void Update()
-	{
-			
+	/// <summary>
+	///  To be completed
+	/// </summary>
+	public void AddUnit(Unit unit) {
+		Unit = unit;
 	}
 }
