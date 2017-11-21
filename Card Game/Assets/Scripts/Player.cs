@@ -5,20 +5,22 @@ using System;
 ///  This class represents a player with a certain deck and a certain faction.
 /// </summary>
 public class Player {
-    private List<Card> deck = new List<Card>(2);
-    private IFaction faction;
+    private const int DeckSize = 2;
+
+	private List<Card> Deck = new List<Card>(DeckSize);
+	private IFaction Faction;
 
     public Player(List<Card> deck, IFaction faction) {
-        this.deck = Shuffle(deck);
-        this.faction = faction;
+        this.Deck = Shuffle(deck);
+        this.Faction = faction;
     }
 
     /// <summary>
     ///  This method returns a card drawn from the deck.
     /// </summary>
     public Card Draw() {
-        Card c = deck[0];
-        deck.RemoveAt(0);
+        Card c = Deck[0];
+        Deck.RemoveAt(0);
         return c;
     }
 
@@ -27,9 +29,9 @@ public class Player {
     ///  of the Fisher-Yates shuffle algorithm.
     /// </summary>
     private static List<Card> Shuffle(IList<Card> list) {
-        Random random = new Random();
+        var random = new Random();
 
-        List<Card> newList = new List<Card>(list);
+        var newList = new List<Card>(list);
         int n = newList.Count;
         for (int i = 0; i < n; i++)
         {

@@ -8,10 +8,17 @@ using UnityEngine;
 abstract public class Unit : Card, IType {
     private const int DefaultShield = 0;
 
-	private int Attack;
-	private int Life;
-	private int Shield;
-	private bool[] Moves;
+	private int attack;
+    public int Attack {get; set;}
+
+	private int life;
+    public int Life {get; set;}
+
+	private int shield;
+    public int Shield {get; set;}
+
+	private bool[] moves;
+    public bool[] Moves {get; set;}
 
     private readonly int timeToProduce;
     public int TimeToProduce {
