@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System;
 
 /// <summary>
-///  To be completed
+///  This class represents a player with a certain deck and a certain faction.
 /// </summary>
 public class Player {
     private List<Card> deck = new List<Card>(2);
@@ -14,7 +14,7 @@ public class Player {
     }
 
     /// <summary>
-    ///  To be completed
+    ///  This method returns a card drawn from the deck.
     /// </summary>
     public Card Draw() {
         Card c = deck[0];
@@ -23,9 +23,10 @@ public class Player {
     }
 
     /// <summary>
-    ///  To be completed
+    ///  This method shuffles the given list of cards using R. Durstenfeld's version
+    ///  of the Fisher-Yates shuffle algorithm.
     /// </summary>
-    private List<Card> Shuffle(IList<Card> list) {
+    private static List<Card> Shuffle(IList<Card> list) {
         Random random = new Random();
 
         List<Card> newList = new List<Card>(list);

@@ -12,7 +12,13 @@ abstract public class Unit : Card, IType {
 	private int Life;
 	private int Shield;
 	private bool[] Moves;
-    public readonly int TimeToProduce;
+
+    private readonly int timeToProduce;
+    public int TimeToProduce {
+        get {
+            return timeToProduce;
+        }
+    }
 
     // we can use Extensions to give enums methods
     private enum UnitType {
@@ -28,6 +34,6 @@ abstract public class Unit : Card, IType {
         this.Life = life;
 		this.Shield = DefaultShield;
         this.Moves = moves;
-        this.TimeToProduce = timeToProduce;
+        this.timeToProduce = timeToProduce;
     }
 }
