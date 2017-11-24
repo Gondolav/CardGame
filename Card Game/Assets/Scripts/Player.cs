@@ -2,12 +2,15 @@ using System.Collections.Generic;
 using System;
 
 /// <summary>
-///  This class represents a player with a certain deck and a certain faction.
+///  This class represents a player with a deck, a hand of cards and a certain faction.
 /// </summary>
 public class Player {
     private const int DeckSize = 2;
+    private const int HandSize = 1;
 
 	private List<Card> Deck = new List<Card>(DeckSize);
+    private List<Card> Hand = new List<Card>(HandSize);
+
 	private IFaction Faction;
 
     public Player(List<Card> deck, IFaction faction) {
@@ -16,12 +19,11 @@ public class Player {
     }
 
     /// <summary>
-    ///  This method returns a card drawn from the deck.
+    ///  This method draws a card from the deck and adds it to the hand of the player.
     /// </summary>
-    public Card Draw() {
-        Card c = Deck[0];
+    public void Draw() {
+        Hand.Add(Deck[0]);
         Deck.RemoveAt(0);
-        return c;
     }
 
     /// <summary>

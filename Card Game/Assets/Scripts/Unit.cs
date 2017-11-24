@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-///  To be completed
+///  This class represents a generic unit card.
 /// </summary>
 abstract public class Unit : Card, IType {
     private const int DefaultShield = 0;
@@ -27,7 +27,7 @@ abstract public class Unit : Card, IType {
         }
     }
 
-    // we can use Extensions to give enums methods
+    // we can use Extensions to give enums methods, if required
     private enum UnitType {
         Ground,
         Space
