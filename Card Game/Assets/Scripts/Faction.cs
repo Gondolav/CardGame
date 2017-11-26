@@ -1,7 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
-public interface Faction
+/// <summary>
+///  To be completed
+/// </summary>
+public interface IFaction
 {
 
 }
