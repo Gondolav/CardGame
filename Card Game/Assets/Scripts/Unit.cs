@@ -20,6 +20,9 @@ abstract public class Unit : Card, IType {
 	private bool[] moves;
     public bool[] Moves {get; set;}
 
+	private bool inEnemyLand;
+	public bool InEnemyLand {get; set;}
+
     private readonly int timeToProduce;
     public int TimeToProduce {
         get {
