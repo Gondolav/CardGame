@@ -5,15 +5,18 @@ using UnityEngine;
 /// <summary>
 ///  To be completed
 /// </summary>
-public class Card : MonoBehaviour {
+public class Card : MonoBehaviour
+{
 
 	// Use this for initialization
-	void Start () {
+	void Start()
+	{
 
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void Update()
+	{
 
 	}
 }
