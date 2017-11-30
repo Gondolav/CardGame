@@ -33,6 +33,15 @@ abstract public class Unit : Card, IType
 		}
 	}
 
+	private readonly int score;
+	public int Score
+	{
+		get
+		{
+			return score;
+		}
+	}
+
 	// we can use Extensions to give enums methods, if required
 	private enum UnitType
 	{
@@ -40,7 +49,7 @@ abstract public class Unit : Card, IType
 		Space
 	}
 
-	protected Unit(int attack, int life, int timeToProduce)
+	protected Unit(int attack, int life, int timeToProduce, int score)
 	{
 		Utility.Require(attack >= 0, "Attack < 0");
 		Utility.Require(life >= 1, "Life <= 0");
@@ -50,5 +59,6 @@ abstract public class Unit : Card, IType
 		this.Shield = DefaultShield;
 		this.Moves = new bool[2];
 		this.timeToProduce = timeToProduce;
+		this.score = score;
 	}
 }

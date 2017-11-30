@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// This class represents a deck as a decorator of cards.
+/// </summary>
 public class Deck
 {
 	private const int DeckSize = 2;
@@ -24,6 +27,9 @@ public class Deck
 		this.Cards = Shuffle(cards);
 	}
 
+	/// <summary>
+	/// This method draws a card and returns it.
+	/// </summary>
 	public Card Draw()
 	{
 		var c = Cards[0];

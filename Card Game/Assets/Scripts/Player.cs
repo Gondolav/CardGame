@@ -58,11 +58,17 @@ public class Player
 		this.CanInitiate = false;
 	}
 
+	/// <summary>
+	/// This method takes away the permissions necessary to play a turn from the player.
+	/// </summary>
 	public void TakeAwayPermissions()
 	{
 		CanInitiate = false;
 	}
 
+	/// <summary>
+	/// This method gives the permissions necessary to play a turn to the player.
+	/// </summary>
 	public void GivePermissions()
 	{
 		HasDrawn = false;
@@ -71,21 +77,42 @@ public class Player
 		CanInitiate = true;
 	}
 
+	/// <summary>
+	/// This method generates and gives to the player credit.
+	/// The credit depends on the number of friendly units present in enemy territory, plus the default credit given to
+	/// the player each turn.
+	/// </summary>
 	public void GenerateCredit()
 	{
 		Credit += NewTurnCredit;
 
 		foreach (Unit unit in Units)
 		{
-			if (unit.InEnemyLand) Credit += 1; /// replace 1 with unit score attribute
+			if (unit.InEnemyLand) Credit += unit.Score;
 		}
 	}
 
+	/// <summary>
+	/// This method is called each frame in order to update the player instance.
+	/// </summary>
 	public void Update()
 	{
 		if (!HasDrawn)
 		{
 			Draw();
+		}
+
+		foreach (Card card in Hand)
+		{
+			if (card.HasBeenPlayed)
+			{
+				if (card is Unit)
+				{
+					Units.Add((Unit)card);
+				}
+
+				Hand.Remove(card);
+			}
 		}
 	}
 
