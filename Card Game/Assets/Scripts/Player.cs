@@ -6,12 +6,12 @@ using System;
 /// </summary>
 public class Player
 {
-	private const int DeckSize = 2;
 	private const int HandSize = 2;
 	private const int InitialCredit = 0;
 	private const int NewTurnCredit = 1;
 
-	private List<Card> Deck = new List<Card>(DeckSize);
+	private readonly Deck Deck;
+
 	private List<Card> Hand = new List<Card>(HandSize);
 	private List<Unit> Units = new List<Unit>();
 
@@ -47,10 +47,10 @@ public class Player
 	private bool HasDrawn;
 	private bool CanInitiate;
 
-	public Player(List<Card> deck, IFaction faction)
+	public Player(Deck deck, IFaction faction)
 	{
 		Utility.Require(deck != null, "Deck == null");
-		this.Deck = Shuffle(deck);
+		this.Deck = deck;
 		this.Faction = faction;
 		this.Credit = InitialCredit;
 		this.End = false;
@@ -94,29 +94,8 @@ public class Player
 	/// </summary>
 	private void Draw()
 	{
-		Hand.Add(Deck[0]);
-		Deck.RemoveAt(0);
+		Hand.Add(Deck.Cards[0]);
+		Deck.Cards.RemoveAt(0);
 		HasDrawn = true;
-	}
-
-	/// <summary>
-	///  This method shuffles the given list of cards using R. Durstenfeld's version
-	///  of the Fisher-Yates shuffle algorithm.
-	/// </summary>
-	private static List<Card> Shuffle(IList<Card> list)
-	{
-		var random = new Random();
-
-		var newList = new List<Card>(list);
-		int n = newList.Count;
-		for (int i = 0; i < n; i++)
-		{
-			int r = i + random.Next(n - i);
-			Card c = newList[r];
-			newList[r] = newList[i];
-			newList[i] = c;
-		}
-
-		return newList;
 	}
 }
