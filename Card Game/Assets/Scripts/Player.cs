@@ -94,8 +94,7 @@ public class Player
 	/// </summary>
 	private void Draw()
 	{
-		Hand.Add(Deck.Cards[0]);
-		Deck.Cards.RemoveAt(0);
+		Hand.Add(Deck.Draw());
 		HasDrawn = true;
 	}
 }

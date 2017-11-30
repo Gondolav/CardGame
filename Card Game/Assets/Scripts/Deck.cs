@@ -24,6 +24,14 @@ public class Deck
 		this.Cards = Shuffle(cards);
 	}
 
+	public Card Draw()
+	{
+		var c = Cards[0];
+		Cards.RemoveAt(0);
+		return c;
+	}
+
+
 	/// <summary>
 	///  This method shuffles the given list of cards using R. Durstenfeld's version
 	///  of the Fisher-Yates shuffle algorithm.
