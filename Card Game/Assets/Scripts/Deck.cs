@@ -24,6 +24,7 @@ public class Deck
 
 	public Deck(List<Card> cards)
 	{
+		Utility.Require(cards != null, "Cards == null");
 		this.Cards = Shuffle(cards);
 	}
 

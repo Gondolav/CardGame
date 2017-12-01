@@ -53,6 +53,8 @@ abstract public class Unit : Card, IType
 	{
 		Utility.Require(attack >= 0, "Attack < 0");
 		Utility.Require(life >= 1, "Life <= 0");
+		Utility.Require(timeToProduce > 0, "TimeToProduce <= 0");
+		Utility.Require(score >= 0, "Score < 0");
 
 		this.Attack = attack;
 		this.Life = life;

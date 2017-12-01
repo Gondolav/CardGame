@@ -44,6 +44,7 @@ public class Building : IFaction
 	/// </summary>
 	public void AddUnit(Unit unit)
 	{
+		Utility.Require(unit != null, "Unit == null");
 		Unit = unit;
 	}
 }
