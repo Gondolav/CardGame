@@ -7,4 +7,8 @@ using System.Collections;
 public class Special : Card
 {
 
+	public Special(string name, string description) {
+		
+	}
+
 }
