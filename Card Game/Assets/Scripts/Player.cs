@@ -4,101 +4,124 @@ using System;
 /// <summary>
 ///  This class represents a player with a deck, a hand of cards and a certain faction.
 /// </summary>
-public class Player {
-    private const int DeckSize = 2;
-    private const int HandSize = 2;
-    private const int InitialCredit = 0;
-    private const int NewTurnCredit = 1;
+public class Player
+{
+	private const int HandSize = 2;
+	private const int InitialCredit = 0;
+	private const int NewTurnCredit = 1;
 
-	private List<Card> Deck = new List<Card>(DeckSize);
-    private List<Card> Hand = new List<Card>(HandSize);
-    private List<Unit> Units = new List<Unit>();
+	private readonly Deck Deck;
+
+	private List<Card> Hand = new List<Card>(HandSize);
+	private List<Unit> Units = new List<Unit>();
 
 	private IFaction Faction;
 
 	private int credit;
-	public int Credit {
-		get {
+	public int Credit
+	{
+		get
+		{
 			return credit;
 		}
-		private set {
+		private set
+		{
 			credit = value;
 		}
 	}
 
 	private bool end;
-    public bool End {
-		get {
+	public bool End
+	{
+		get
+		{
 			return end;
 		}
-		private set {
+		private set
+		{
 			end = value;
 		}
 
 	}
 
-    private bool HasDrawn;
-    private bool CanInitiate;
+	private bool HasDrawn;
+	private bool CanInitiate;
 
-    public Player(List<Card> deck, IFaction faction) {
-        this.Deck = Shuffle(deck);
-        this.Faction = faction;
-        this.Credit = InitialCredit;
-        this.HasDrawn = false;
-        this.End = false;
-    }
+	public Player(Deck deck, IFaction faction)
+	{
+		Utility.Require(deck != null, "Deck == null");
+		this.Deck = deck;
+		this.Faction = faction;
+		this.Credit = InitialCredit;
+		this.End = false;
+		this.HasDrawn = false;
+		this.CanInitiate = false;
+	}
 
-    public void TakeAwayPermissions() {
-        CanInitiate = false;
-    }
+	/// <summary>
+	/// This method takes away the permissions necessary to play a turn from the player.
+	/// </summary>
+	public void TakeAwayPermissions()
+	{
+		CanInitiate = false;
+	}
 
-    public void GivePermissions() {
-        HasDrawn = false;
-        End = false;
+	/// <summary>
+	/// This method gives the permissions necessary to play a turn to the player.
+	/// </summary>
+	public void GivePermissions()
+	{
+		HasDrawn = false;
+		End = false;
 
-        CanInitiate = true;
-    }
+		CanInitiate = true;
+	}
 
-    public void GenerateCredit() {
-        Credit += NewTurnCredit;
-        
-        foreach (Unit unit in Units) {
-            if (unit.InEnemyLand) Credit += 1; /// replace 1 with unit score attribute
-        }
-    }
+	/// <summary>
+	/// This method generates and gives to the player credit.
+	/// The credit depends on the number of friendly units present in enemy territory, plus the default credit given to
+	/// the player each turn.
+	/// </summary>
+	public void GenerateCredit()
+	{
+		Credit += NewTurnCredit;
 
-    public void Update() {
-        if (!HasDrawn) {
-            Draw();
-        }
-    }
+		foreach (Unit unit in Units)
+		{
+			if (unit.InEnemyLand) Credit += unit.Score;
+		}
+	}
 
-    /// <summary>
-    ///  This method draws a card from the deck and adds it to the hand of the player.
-    /// </summary>
-    private void Draw() {
-        Hand.Add(Deck[0]);
-        Deck.RemoveAt(0);
-        HasDrawn = true;
-    }
+	/// <summary>
+	/// This method is called each frame in order to update the player instance.
+	/// </summary>
+	public void Update()
+	{
+		if (!HasDrawn)
+		{
+			Draw();
+		}
 
-    /// <summary>
-    ///  This method shuffles the given list of cards using R. Durstenfeld's version
-    ///  of the Fisher-Yates shuffle algorithm.
-    /// </summary>
-    private static List<Card> Shuffle(IList<Card> list) {
-        var random = new Random();
+		foreach (Card card in Hand)
+		{
+			if (card.HasBeenPlayed)
+			{
+				if (card is Unit)
+				{
+					Units.Add((Unit)card);
+				}
 
-        var newList = new List<Card>(list);
-        int n = newList.Count;
-        for (int i = 0; i < n; i++)
-        {
-            int r = i + random.Next(n - i);
-            Card c = newList[r];
-            newList[r] = newList[i];
-            newList[i] = c;
-        }
+				Hand.Remove(card);
+			}
+		}
+	}
 
-        return newList;
-    }
+	/// <summary>
+	///  This method draws a card from the deck and adds it to the hand of the player.
+	/// </summary>
+	private void Draw()
+	{
+		Hand.Add(Deck.Draw());
+		HasDrawn = true;
+	}
 }

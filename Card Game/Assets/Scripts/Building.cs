@@ -9,14 +9,17 @@ public class Building : IFaction
 	private Unit Unit;
 
 	private bool isHit = false;
-	public bool IsHit {get; set;}
+	public bool IsHit { get; set; }
 
 	private bool isProductionCompleted = false;
-	public bool IsProductionCompleted {
-		get {
+	public bool IsProductionCompleted
+	{
+		get
+		{
 			return isProductionCompleted;
 		}
-		private set {
+		private set
+		{
 			isProductionCompleted = value;
 		}
 
@@ -26,8 +29,10 @@ public class Building : IFaction
 	///  This method is used to check if the time necessary to produce a certain unit has elapsed,
 	///  and if it is the case it sets the field IsProductionCompleted to true.
 	/// </summary>
-	public void Produce() {
-		if (!IsHit) {
+	public void Produce()
+	{
+		if (!IsHit)
+		{
 			int counter = Unit.TimeToProduce;
 			if (counter > 0) --counter;
 			else IsProductionCompleted = true;
@@ -37,7 +42,9 @@ public class Building : IFaction
 	/// <summary>
 	///  This method allows to attach a given unit to the building in order to produce it.
 	/// </summary>
-	public void AddUnit(Unit unit) {
+	public void AddUnit(Unit unit)
+	{
+		Utility.Require(unit != null, "Unit == null");
 		Unit = unit;
 	}
 }
