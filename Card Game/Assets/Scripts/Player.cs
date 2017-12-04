@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System;
+using UnityEngine;
 
 /// <summary>
 ///  This class represents a player with a deck, a hand of cards and a certain faction.
 /// </summary>
-public class Player
+public class Player : MonoBehaviour
 {
 	private const int HandSize = 2;
 	private const int InitialCredit = 0;

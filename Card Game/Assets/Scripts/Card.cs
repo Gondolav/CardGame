@@ -40,7 +40,6 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 	}
 
 	public void OnDrag(PointerEventData eventData) {
-		Debug.Log ("Dragging");
 		this.transform.position = eventData.position;
 	}
 
