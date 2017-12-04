@@ -2,10 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 
 public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler{
 
+	private readonly string Description;
+
+	private readonly Image Image;
+
+	private int cost;
+	public int Cost { get; set; }
+
+	private bool hasBeenPlayed;
+	public bool HasBeenPlayed { get; set; }
+	
 	public Transform parentToReturnTo = null;
 
 	private string cardName;

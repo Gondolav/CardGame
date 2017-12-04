@@ -1,7 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
-public interface Type
+/// <summary>
+/// To be completed
+/// </summary>
+public interface IType
 {
 
 }
