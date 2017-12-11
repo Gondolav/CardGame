@@ -5,10 +5,12 @@ using UnityEngine;
 public class GameStateController : MonoBehaviour
 {
 
-	public Player Player1, Player2;
+    public Player Player1 = null;
+    public Player Player2 = null;
 	private Player Winner;
 
 	public int WinningCredit = 100;
+    private int counter = 0;
 
 	private enum State
 	{
@@ -25,17 +27,23 @@ public class GameStateController : MonoBehaviour
 	void Start()
 	{
 		state = State.Starting;
+        Player1 = GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>();
+        Player2 = GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>();
 
-		/*
+        /*
          Create the two players with the constructors, 
          pass deck with a base deck
          pass a base faction
          */
-	}
+    }
 
 	// Update is called once per frame
 	void Update()
 	{
+        if (counter == 0) {
+            Debug.Log("counter is 0, state is: " + state);
+        }
+        counter = (counter + 1) % 50;
 		switch (state)
 		{
 			case State.Starting:
@@ -75,7 +83,13 @@ public class GameStateController : MonoBehaviour
 		}
 	}
 
-	void PrepareTransition(Player from, Player to)
+
+    public bool EndTurn()
+    {
+        return true;
+    }
+
+    void PrepareTransition(Player from, Player to)
 	{
 		if (to.Credit >= WinningCredit)
 		{
