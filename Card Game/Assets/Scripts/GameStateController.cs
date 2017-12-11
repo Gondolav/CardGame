@@ -10,7 +10,6 @@ public class GameStateController : MonoBehaviour
 	private Player Winner;
 
 	public int WinningCredit = 100;
-    private int counter = 0;
 
 	private enum State
 	{
@@ -28,7 +27,7 @@ public class GameStateController : MonoBehaviour
 	{
 		state = State.Starting;
         Player1 = GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>();
-        Player2 = GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>();
+        Player2 = GameObject.FindGameObjectWithTag("Player2").GetComponent<Player>();
 
         /*
          Create the two players with the constructors, 
@@ -37,13 +36,10 @@ public class GameStateController : MonoBehaviour
          */
     }
 
+    private int counter = 0;
 	// Update is called once per frame
 	void Update()
 	{
-        if (counter == 0) {
-            Debug.Log("counter is 0, state is: " + state);
-        }
-        counter = (counter + 1) % 50;
 		switch (state)
 		{
 			case State.Starting:
@@ -83,10 +79,17 @@ public class GameStateController : MonoBehaviour
 		}
 	}
 
+    private Player ActivePlayer() {
+        switch (state) {
+            case State.Player1: return Player1;
+            case State.Player2: return Player2;
+        }
+        return null;
+    }
 
-    public bool EndTurn()
+    public void EndTurn()
     {
-        return true;
+        ActivePlayer().End = true;
     }
 
     void PrepareTransition(Player from, Player to)

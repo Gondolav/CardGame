@@ -8,31 +8,14 @@ using UnityEngine;
 public class Deck : MonoBehaviour
 {
 	private const int DeckSize = 2;
-    public Card[] BaseCards;
-
 
     void Start() {
-        Utility.Require(BaseCards.Length == DeckSize, "Not enough cards in Deck");
-        foreach (Card card in BaseCards) {
-            cards.Add(card);
-        }
-        cards = Shuffle(cards);
+        Utility.Require(Cards.Count == DeckSize, "Not enough cards in Deck");
+        Cards = Shuffle(Cards);
     }
 
 
-	private List<Card> cards = new List<Card>(DeckSize);
-	public List<Card> Cards
-	{
-		get
-		{
-			return cards;
-		}
-
-		private set
-		{
-			cards = value;
-		}
-	}
+	public List<Card> Cards = new List<Card>(DeckSize);
 
 	/// <summary>
 	/// This method draws a card and returns it.

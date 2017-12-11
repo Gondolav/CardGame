@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
 	public Deck Deck;
     public DropZone HandUI;
 
-	private List<Card> Hand = new List<Card>(HandSize);
+	public List<Card> Hand = new List<Card>(HandSize);
 	private List<Unit> Units = new List<Unit>();
 
 	private IFaction Faction;
@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
 		{
 			return end;
 		}
-		private set
+		set
 		{
 			end = value;
 		}

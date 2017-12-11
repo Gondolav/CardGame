@@ -32,7 +32,6 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 	}
 
 	public void OnBeginDrag(PointerEventData eventData) {
-		Debug.Log ("Begin Drag");
 
 		GetComponent<CanvasGroup> ().blocksRaycasts = false;
 		parentToReturnTo = this.transform.parent;
@@ -44,7 +43,6 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 	}
 
 	public void OnEndDrag(PointerEventData eventData) {
-		Debug.Log ("End Drag");
 		this.transform.SetParent (parentToReturnTo);
 		GetComponent<CanvasGroup> ().blocksRaycasts = true;
 	}
