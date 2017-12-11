@@ -11,7 +11,8 @@ public class Player : MonoBehaviour
 	private const int InitialCredit = 0;
 	private const int NewTurnCredit = 1;
 
-	private readonly Deck Deck;
+	public Deck Deck;
+    public DropZone HandUI;
 
 	private List<Card> Hand = new List<Card>(HandSize);
 	private List<Unit> Units = new List<Unit>();
@@ -48,16 +49,14 @@ public class Player : MonoBehaviour
 	private bool HasDrawn;
 	private bool CanInitiate;
 
-	public Player(Deck deck, IFaction faction)
-	{
-		Utility.Require(deck != null, "Deck == null");
-		this.Deck = deck;
-		this.Faction = faction;
-		this.Credit = InitialCredit;
-		this.End = false;
-		this.HasDrawn = false;
-		this.CanInitiate = false;
-	}
+    void Start() {
+        Utility.Require(Deck != null, "Deck == null");
+        this.Credit = InitialCredit;
+        this.End = false;
+        this.HasDrawn = true;
+        this.CanInitiate = false;
+    }
+
 
 	/// <summary>
 	/// This method takes away the permissions necessary to play a turn from the player.
@@ -102,27 +101,17 @@ public class Player : MonoBehaviour
 		{
 			Draw();
 		}
-
-		foreach (Card card in Hand)
-		{
-			if (card.HasBeenPlayed)
-			{
-				if (card is Unit)
-				{
-					Units.Add((Unit)card);
-				}
-
-				Hand.Remove(card);
-			}
-		}
 	}
+
 
 	/// <summary>
 	///  This method draws a card from the deck and adds it to the hand of the player.
 	/// </summary>
 	private void Draw()
 	{
-		Hand.Add(Deck.Draw());
+        Card drawn = Deck.Draw();
+		Hand.Add(drawn);
 		HasDrawn = true;
+        drawn.transform.SetParent(HandUI.transform);
 	}
 }

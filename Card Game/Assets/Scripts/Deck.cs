@@ -1,12 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// This class represents a deck as a decorator of cards.
 /// </summary>
-public class Deck
+public class Deck : MonoBehaviour
 {
 	private const int DeckSize = 2;
+    public Card[] BaseCards;
+
+
+    void Start() {
+        Utility.Require(BaseCards.Length == DeckSize, "Not enough cards in Deck");
+        foreach (Card card in BaseCards) {
+            cards.Add(card);
+        }
+        cards = Shuffle(cards);
+    }
+
 
 	private List<Card> cards = new List<Card>(DeckSize);
 	public List<Card> Cards
@@ -22,20 +34,14 @@ public class Deck
 		}
 	}
 
-	public Deck(List<Card> cards)
-	{
-		Utility.Require(cards != null, "Cards == null");
-		this.Cards = Shuffle(cards);
-	}
-
 	/// <summary>
 	/// This method draws a card and returns it.
 	/// </summary>
 	public Card Draw()
 	{
-		var c = Cards[0];
+		Card c = Cards[0];
 		Cards.RemoveAt(0);
-		return c;
+        return c;
 	}
 
 
@@ -45,7 +51,7 @@ public class Deck
 	/// </summary>
 	private static List<Card> Shuffle(IList<Card> list)
 	{
-		var random = new Random();
+		var random = new System.Random();
 
 		var newList = new List<Card>(list);
 		int n = newList.Count;

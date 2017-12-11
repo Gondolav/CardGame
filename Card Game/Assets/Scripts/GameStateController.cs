@@ -83,7 +83,13 @@ public class GameStateController : MonoBehaviour
 		}
 	}
 
-	void PrepareTransition(Player from, Player to)
+
+    public bool EndTurn()
+    {
+        return true;
+    }
+
+    void PrepareTransition(Player from, Player to)
 	{
 		if (to.Credit >= WinningCredit)
 		{
